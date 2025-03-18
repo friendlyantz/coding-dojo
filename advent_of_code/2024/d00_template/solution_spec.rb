@@ -2,9 +2,6 @@
 
 require File.join(__dir__, 'solution')
 
-require 'pry'
-require 'awesome_print'
-
 RSpec.describe 'Solutions' do
   let(:example_input) { File.read(File.join(__dir__, 'data/ie_input')) }
   let(:custom_input) { File.read(File.join(__dir__, 'data/input')) }

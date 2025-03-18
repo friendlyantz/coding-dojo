@@ -1,10 +1,10 @@
 source 'https://rubygems.org'
 
 gem 'colorize'
-gem 'colorized_string'
 gem 'pqueue'
+gem 'rspec'
 gem 'ruby-progressbar'
-gem 'super_diff'
 gem 'set'
+gem 'super_diff'
 
-gem "ruby2d", "~> 0.12.1"
+gem 'ruby2d', '~> 0.12.1'

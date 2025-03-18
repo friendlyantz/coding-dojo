@@ -11,7 +11,7 @@ class Solution
 
   def solution_pt2
     # input
-    # .then { |data| binding.pry }
+    # .then { |data| binding.irb }
   end
 end
 
