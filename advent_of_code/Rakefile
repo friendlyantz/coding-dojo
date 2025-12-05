@@ -1,0 +1,31 @@
+task default: :list_files
+
+directory 'spec'
+
+desc 'List all files in the current directory'
+task list_files: 'Rakefile' do
+  puts 'hello'
+end
+
+desc 'clean'
+task :clean, [:day] do |_t, args|
+   day = args[:day].rjust(2, '0')
+   puts "cleaning day #{day}"
+   rm_rf "spec/d#{day}"
+end
+
+desc 'init day x, create spec file, load input data'
+task :load, [:day] => 'spec' do |_t, args|
+   day = args[:day].rjust(2, '0')
+   spec_file_path = "spec/d#{day}/solution_spec.rb"
+   FileUtils.mkdir_p(File.dirname(spec_file_path))
+   FileUtils.touch("spec/d#{day}/solution_spec.rb")
+   input_file_path = "spec/d#{day}/input"
+   FileUtils.touch(input_file_path)
+   FileUtils.touch(input_file_path + '_example')
+   url = "https://adventofcode.com/2024/day/#{args[:day]}/input"
+   sh "open #{url}"
+
+   FileUtils.mkdir_p('d' + day)
+   FileUtils.touch("d#{day}/solution.rb")
+end
