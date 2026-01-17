@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 #
 # Given an array of integers nums and an integer target, return indices of the two numbers such that they add up to target.
 
@@ -31,31 +32,45 @@
 
 # Follow-up: Can you come up with an algorithm that is less than O(n2) time complexity?
 
+# O(n)
+# 3ms
+# 212.44MB
 def two_sum(nums, target)
-  # n^2 solution
-  # Doesn't pass time limit on LEETCODE
-  # nums.each_with_index do |num, index|
-  #   nums[index.next..].each_with_index do |num2, index2|
-  #     return [index, index.next + index2] if (num + num2) == target
-  #   end
-  # end
-  #
+  num_index = Hash.new(nil)
+  nums.each_with_index do |num, index|
+    complement = target - num
+    return [num_index[complement], index] if num_index[complement]
 
+    num_index[num] = index
+  end
+end
+
+def also_slow_two_sum(nums, target)
   # Runtime: 399 ms - 20% off solutions
-  # Memory Usage: 211 MB - 99% better than other submissions STABLE!!!!
+  # Memory Usage: 211 MB - 99% better than other submissions
   last_index = nums.size - 1
-  nums.size.times do |index|
+  nums.size.times do |pop_index|
     num = nums.pop # poping from tail is faster, shift wont pass time limit
     nums.each_with_index do |num2, index2|
-      return [index2, last_index - index] if (num + num2) == target
+      return [index2, last_index - pop_index] if (num + num2) == target
     end
   end
 end
 
-RSpec.describe 'Solution' do
-  it 'works' do
-    expect(two_sum([2,7,11,15], 9)).to eq([0,1])
-    expect(two_sum([3,2,4], 6)).to eq [1,2]
-    expect(two_sum([3,3], 6)).to eq [0,1]
+# n^2 solution
+# Doesn't pass time limit on LEETCODE
+def naive_two_sum(nums, target)
+  nums.each_with_index do |num, index|
+    nums[index.next..].each_with_index do |num2, index2|
+      return [index, index.next + index2] if (num + num2) == target
+    end
+  end
+end
+
+RSpec.describe "Solution" do
+  it "works" do
+    expect(two_sum([2, 7, 11, 15], 9)).to eq([0, 1])
+    expect(two_sum([3, 2, 4], 6)).to eq [1, 2]
+    expect(two_sum([3, 3], 6)).to eq [0, 1]
   end
 end
